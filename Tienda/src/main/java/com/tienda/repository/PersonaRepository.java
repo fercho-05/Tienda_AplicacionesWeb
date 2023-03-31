@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonaRepository extends CrudRepository<Persona,Long> {
-    
+    Persona findByNombre(String nombre); //Así se hace para buscar un findByColumna, con esto el entiende en que columna va a buscar, se asume que es unico el nombre
 }
