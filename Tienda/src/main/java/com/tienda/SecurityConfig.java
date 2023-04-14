@@ -61,9 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/persona", "/login")
                 .hasRole("ADMIN")
                 .antMatchers("/personasN", "/persona", "/", "/login")
-                .hasAnyRole("USER", "VENDEDOR", "ADMIN")
-                .anyRequest().authenticated()
+                .hasAnyRole("USER", "VENDEDOR", "ADMIN") //Borrando acá tambien se pueden restringir accesos
+//                .anyRequest().authenticated() Quitar esto hace que podamos acceder a la pagina sin tener que hacer login
                 .and()
-                .formLogin();
+                .formLogin() //Esto crea un login por defecto de spring
+                //Apartir de aca se le dice al programa cual va a ser el login que debe usar(el nuestro)
+                .loginPage("/login").permitAll().defaultSuccessUrl("/persona", true).and().logout() //Todas las personas pueden entrar y al logear lo lleva a persona
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
     }
 }
